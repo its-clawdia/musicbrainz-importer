@@ -1,0 +1,33 @@
+name: Publish to ClawHub
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - run: npm i -g clawhub
+
+      - name: Publish to ClawHub
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CLAWHUB_TOKEN: ${{ secrets.CLAWHUB_TOKEN }}
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          CHANGELOG=$(gh release view "$GITHUB_REF_NAME" --json body -q .body 2>/dev/null || echo "")
+          clawhub login --token "$CLAWHUB_TOKEN" --no-browser
+          clawhub publish . \
+            --slug musicbrainz-importer \
+            --name "MusicBrainz Importer" \
+            --version "$VERSION" \
+            --tags latest \
+            --changelog "${CHANGELOG:-Release $VERSION}" \
+            --no-input
