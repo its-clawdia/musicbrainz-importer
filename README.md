@@ -1,6 +1,6 @@
 # MusicBrainz Importer
 
-An [OpenClaw](https://openclaw.ai) skill for looking up and adding music metadata on [MusicBrainz](https://musicbrainz.org).
+A skill for looking up and adding music metadata on [MusicBrainz](https://musicbrainz.org). Works with [Hermes](https://hermes.openclaw.ai) and any agent that supports SKILL.md-based skills.
 
 ## What it does
 
@@ -19,18 +19,24 @@ An [OpenClaw](https://openclaw.ai) skill for looking up and adding music metadat
 
 ## Install
 
+### Via npx skills
+
+```bash
+npx skills add its-clawdia/musicbrainz-importer
+```
+
 ### Via ClawHub
 
 ```bash
-openclaw skills install musicbrainz-importer
+clawhub install musicbrainz-importer
 ```
 
 ### Manual
 
-Clone into your OpenClaw skills directory:
+Clone into your Hermes skills directory:
 
 ```bash
-git clone https://github.com/its-clawdia/musicbrainz-importer.git ~/.openclaw/skills/musicbrainz
+git clone https://github.com/its-clawdia/musicbrainz-importer.git ~/.hermes/skills/openclaw-imports/musicbrainz-importer
 ```
 
 ## Setup
@@ -38,7 +44,7 @@ git clone https://github.com/its-clawdia/musicbrainz-importer.git ~/.openclaw/sk
 Store your MusicBrainz credentials for write operations:
 
 ```bash
-cat > ~/.openclaw/skills/musicbrainz/.credentials.json << 'EOF'
+cat > ~/.hermes/skills/openclaw-imports/musicbrainz-importer/.credentials.json << 'EOF'
 {"username": "YOUR_MB_USERNAME", "password": "YOUR_MB_PASSWORD"}
 EOF
 ```
@@ -46,7 +52,7 @@ EOF
 Verify with:
 
 ```bash
-bash ~/.openclaw/skills/musicbrainz/scripts/preflight.sh
+bash ~/.hermes/skills/openclaw-imports/musicbrainz-importer/scripts/preflight.sh
 ```
 
 ## License
